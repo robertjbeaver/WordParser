@@ -17,18 +17,18 @@ public class WordParserApp {
 		String filestr = sc.next();
 		File file = new File(filestr);
 		StringBuilder sb = WordParserIO.getText(file);
-		sb = WordParserSB.clean(sb);
+		sb = WordParserUtil.clean(sb);
 		String[] arrayOfWords = sb.toString().split(" ");
-		ArrayList<Word> wordsList = WordParserSB.calculate(arrayOfWords);
-		wordsList = WordParserSB.sortByTimesUsed(wordsList);
+		ArrayList<Word> wordsList = WordParserUtil.generateListOfWordObjects(arrayOfWords);
+		wordsList = WordParserUtil.sortByTimesUsed(wordsList);
 		for(Word w: wordsList) System.out.println(w.toString());
-		//HashMap<String, Integer> wordsList = WordParserSB.calculateMap(words);
+		//HashMap<String, Integer> wordsList = WordParserSB.generateMapOfWords(words);
 		//for(String word: words) System.out.print(word);
-		
-		
-		
-		
+
+
+
+
 
 	}
-	
+
 }

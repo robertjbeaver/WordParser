@@ -7,16 +7,13 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class WordParserIO {
-	private static File originalFile = null;
 	private File parsedFile = null;
-	
+
 	public WordParserIO() {
-		parsedFile = new File("output.txt");
-		this.createCheck();
 	}
 	public static StringBuilder getText(File file)  {
 		try(BufferedReader in = new BufferedReader(
-								new FileReader(file))) {
+				new FileReader(file))) {
 			StringBuilder sb = new StringBuilder();
 			String text = in.readLine();
 			while(text != null) {
@@ -28,9 +25,9 @@ public class WordParserIO {
 			System.out.println(e);
 			return null;
 		}
-		
-		
-		
+
+
+
 	}
 	private void createCheck() {
 		try {

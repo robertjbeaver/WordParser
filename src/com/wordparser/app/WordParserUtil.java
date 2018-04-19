@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class WordParserSB {
+public class WordParserUtil {
 
 	// removes all non letters but leaves the spaces
 	public static StringBuilder clean(StringBuilder sb) {
@@ -16,8 +16,8 @@ public class WordParserSB {
 		} return cleanSB;
 	} 
 
-
-	public static HashMap<String, Integer> calculateMap(String[] arrayOfWords) {
+	// generates a HashMap of Strings that have a Value equal to the number of times they appear
+	public static HashMap<String, Integer> generateMapOfWords(String[] arrayOfWords) {
 		HashMap<String, Integer> wordMap = new HashMap<>();
 		for(int i = 0; i < arrayOfWords.length; i++) {
 			if(wordMap.containsKey(arrayOfWords[i])) {
@@ -26,17 +26,17 @@ public class WordParserSB {
 				wordMap.put(arrayOfWords[i], 1);
 			}
 		} return wordMap;
-	}	
+	}	// I could not figure out a way to order this list, since you can't iterate a HashMap
 
 
 
 
 
-
-	public static ArrayList<Word> calculate(String[] arrayOfWords){	
+	//Instead of a HashMap, I create a list of Word objects, that have a timesUsed variable
+	public static ArrayList<Word> generateListOfWordObjects(String[] arrayOfWords){	
 		ArrayList<Word> wordObjectList = new ArrayList<>(); 
 		for(int i = 0; i< arrayOfWords.length; i++) {
-			if(!listContains(wordObjectList, arrayOfWords[i]) && !arrayOfWords[i].equalsIgnoreCase(" ")) {
+			if(!listContains(wordObjectList, arrayOfWords[i])) {
 				Word newWord = new Word(arrayOfWords[i], 1);
 				wordObjectList.add(newWord);
 			} else {
@@ -45,7 +45,7 @@ public class WordParserSB {
 		}return wordObjectList;
 	}
 
-
+	//And now we can sort the ArrayList of those words into a new List, and return that ordered list
 	public static ArrayList<Word> sortByTimesUsed(ArrayList<Word> wordsList){
 		int maxUsed = 0;
 		int maxIndex = 0;
@@ -66,7 +66,10 @@ public class WordParserSB {
 		}
 		return returdedWordList;
 	}
-	
+
+
+	//methods used in the generation of Word objects. They check to see if the list 
+	//already contains a word object, and then another method to increment the timesUsed
 
 	private static boolean listContains(ArrayList<Word> wordsList, String passedWord) {
 		for(Word w: wordsList) {
@@ -75,7 +78,7 @@ public class WordParserSB {
 			} 
 		} return false;
 	}
-	
+
 	private static void incrementTimesUsed(ArrayList<Word> wordsList, String passedWord) {
 		for(Word w: wordsList) {
 			if(w.getWord().equalsIgnoreCase(passedWord)) w.setTimesUsed(w.getTimesUsed()+1);
