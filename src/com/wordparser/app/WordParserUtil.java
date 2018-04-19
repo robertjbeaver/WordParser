@@ -2,15 +2,14 @@ package com.wordparser.app;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 public class WordParserUtil {
 
 	// removes all non letters but leaves the spaces
-	public static StringBuilder clean(StringBuilder sb) {
+	public static StringBuilder removeSpecialChars(StringBuilder sb) {
 		StringBuilder cleanSB = new StringBuilder();
 		for(int i = 0; i < sb.length(); i++) {
-			if("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOVQRSTUVWXYZ ".indexOf(sb.substring(i,i+1)) != -1) {
+			if("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOVQRSTUVWXYZ' ".indexOf(sb.substring(i,i+1)) != -1) {
 				cleanSB.append(sb.substring(i, i+1));
 			}
 		} return cleanSB;
@@ -37,11 +36,15 @@ public class WordParserUtil {
 		ArrayList<Word> wordObjectList = new ArrayList<>(); 
 		for(int i = 0; i< arrayOfWords.length; i++) {
 			if(!listContains(wordObjectList, arrayOfWords[i])) {
-				Word newWord = new Word(arrayOfWords[i], 1);
-				wordObjectList.add(newWord);
+				Word newWord = new Word(arrayOfWords[i].toLowerCase(), 1);
+				
+				//if the word isn't just a space add it to the list
+				if(" ".indexOf(newWord.getWord()) == -1) wordObjectList.add(newWord);
+				
 			} else {
 				incrementTimesUsed(wordObjectList, arrayOfWords[i]);
-			}	
+			}
+
 		}return wordObjectList;
 	}
 
